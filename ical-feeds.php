@@ -31,6 +31,10 @@ function icalfeeds_config_page() {
 }
 
 function icalfeeds_conf() {
+	
+	wp_enqueue_script('jquery-ui-accordion');
+    	wp_register_style('jquery-custom-style', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', array(), '1', 'screen'); 
+    	wp_enqueue_style('jquery-custom-style');
 
 	$options = get_option('icalfeeds');
 
@@ -205,7 +209,28 @@ function icalfeeds_conf() {
 		'public'   => true,
 		'_builtin' => false
 	);
-
+	
+	//Taxonomies iCal Links
+	$taxonomies = get_taxonomies($args, 'objects'); 
+	
+	echo '<h2>'.__('Custom Taxonomy iCal feeds', ICALFEEDS_TEXTDOMAIN).'</h2>';
+	
+	echo '<div id="accordion">';
+	foreach ( $taxonomies as $taxonomy ) {
+       		echo '<h3>'.$taxonomy->label. '  <small>( '. $taxonomy->name .' )</small></h3>';
+       		echo '<div>';
+       		echo '<ul id="'.$taxonomy->name.'_termList">';
+       		$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) );
+       		foreach ( $terms as $term ) {
+       		 	  echo '<li><input type="checkbox" id="' . $term->slug . '"> <label for="' . $term->slug . '">' . $term->name . '</label>';
+       		}
+       		echo '</ul>';
+       		echo '</div>';
+	}
+	
+    	echo '</div>';
+    
+    	//Post Types iCal Links
 	$post_types = get_post_types($args);
 
 	if (count($post_types)) {
