@@ -284,6 +284,9 @@ jQuery(document).ready(function() {
 			jQuery('#categoriesUrl').show();
 		}
 	});
+	jQuery( "#accordion" ).accordion({
+      		heightStyle: "content"
+    	});
 });
 </script>
 HTML;
