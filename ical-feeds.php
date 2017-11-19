@@ -222,7 +222,7 @@ function icalfeeds_conf() {
        		echo '<ul id="'.$taxonomy->name.'_termList">';
        		$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) );
        		foreach ( $terms as $term ) {
-       		 	  echo '<li><input type="checkbox" id="' . $term->slug . '"> <label for="' . $term->slug . '">' . $term->name . '</label>';
+       		 	  echo '<li style="display: inline-block; padding: 10px; margin: 2px; background: #eee;"><input type="checkbox" id="' . $term->slug . '"> <label for="' . $term->slug . '">' . $term->name . '</label>';
        		}
        		echo '</ul>';
        		echo '</div>';
